@@ -12,7 +12,7 @@
 *  事务执行
 *  并行执行
 *  上下文传参
-*  数学运算
+*  灵活的数学运算
 
 
 ## 开始使用
@@ -58,14 +58,17 @@ System.out.printf("msg:%s", result.get("msg"));  // 输出得到结果
 
 ## 高级进阶
 
-0.  条件判断的用法
-0.  as的用法
+1.  条件判断的用法
+1.  as的用法
 1.  嵌套
+1.  属性的访问
+1.  数组元素的访问
+4.  上下文传参
+6.  类型转换
+5.  数学运算
+7.  比较运算
 2.  事务
 3.  并行执行
-4.  上下文传参
-5.  数学运算
-6.  类型转换, 比较运算符 和 数学运算符
 
 #### 条件判断的用法
 条件是从上至下进行判断，匹配之后则执行对应行为，并不再执行后续的条件逻辑。 当所有的条件都检查完之后，如果仍然没有匹配的条件，执行else(如果存在的话）
@@ -147,6 +150,102 @@ doJobA() as A {
 }
 ```
 
+####  属性的访问
+我们使用.进行属性的访问，它可以作用于：
+1.  HashMap<String, ?> 的元素
+2.  Class对象的public属性
+3.  链式访问
+
+###### HashMap<String, ?>的元素
+当userInfo()返回一个 HashMap<String, int> 时, 可以这样获取age字段：
+```
+userInfo() as u {
+   u.age > 10 {
+      ...
+   }
+}
+```
+
+###### class的public属性
+
+如果userInfo()返回的是个这样的对象：
+```
+class UserInfo {
+   public age int;
+}
+```
+也可以用上述的方式获取age字段：
+```
+userInfo() as u {
+   u.age > 10 {
+      ...
+   }
+}
+```
+
+###### 属性的链式访问
+
+如果userInfo()返回的对象是这样的：
+```
+class UserInfo {
+   public HashTable<String, int> profile;
+}
+```
+可以这样获取profile的age属性：
+```
+userInfo() as u {
+    u.profile.age > 10 {
+       ...
+    }
+}
+```
+`u.profile.age` 相当于 `u.profile.get("age")`
+
+###### 如果属性名称是个变量
+假设 chooseFiled() 返回一个字段名字，可以这样获取profile对应的元素
+```
+userInfo() as u; chooseField() as field {
+    u.profile[field] > 10 {
+         ...
+    }
+}
+```
+`u.profile[field]` 相当于 `u.profile.get(field);`
+
+###### 属性名不存在
+如果属性名不存在，将得到一个null，不会有异常抛出
+
+####  数组元素的访问
+数组元素的访问使用[]符。
+
+###### 访问数组[]的元素
+元素的下标与java一样，从0算起，假设userList()返回一个ArrayList<UserInfo> , 可以这样获取第2个元素
+```
+userList() as u {
+   u[2].age > 10 {
+      ...
+   }
+}
+```
+  
+###### 如果索引是个变量
+假设 random(max) 返回一个int, 可以这么随机获取列表中的某个元素:
+```
+userList() as u; random(len(u)) as index {
+    u[index].age > 10 {
+       ...
+    }
+}
+```
+  
+######  数组越界
+如果数组越界，RuleException(RuleError.IndexOutOfRange) 将被抛出
+  
+####  上下文传参
+####  类型转换
+####  数学运算
+####  比较运算
+####  并行执行
 
  #### 事务
  
