@@ -26,19 +26,32 @@
           "msg": "this is a child"
         }
       }
-      u.age <= 30 {
-        return {
-          "msg": "this is an adult"
-        }
-      }
       else {
         return {
-          "msg": "this is an older"
+          "msg": "this is an adult"
         }
       }
   }
 ```
 
 #### 2. 实现method
+```java
+MiniRule mr = new MiniRule();
+mr.addMethod("QueryUser", new Method{
+    public HashMap<String, Object> call(IVar[] ...params) {
+       HashMap<String, Object> user = new HashMap<String,Object>();
+       // query user info from db , or somewhere else
+       // ...
+       return user;
+    }
+});
+```
 
-
+####  3. 编译规则并执行
+```java
+MiniRule mr = new MiniRule();
+String script = "QueryUser() as u { ... }"; // 步骤1.编写得到的规则语法
+Prog rule = mr.compile(script);
+HashMap<String, Object> result = rule.call(null);
+System.out.printf("msg:%s", result.get("msg"));  // 输出得到结果
+```
