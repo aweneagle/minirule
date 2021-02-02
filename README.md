@@ -19,6 +19,11 @@
 ## 开始使用
 
 #### 1. 编写规则
+
+1.  查询用户信息 QueryUser()
+2.  如果用户年龄>3, 输出"this is a child"
+3.  否则，输出"this is an adult"
+
 ```
   QueryUser() as u {
       u.age <= 10 {
