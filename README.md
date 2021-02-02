@@ -19,7 +19,7 @@
 ## 开始使用
 
 #### 1. 编写规则
-```json
+```
   QueryUser() as u {
       u.age <= 10 {
         return {
