@@ -5,7 +5,6 @@ import java.util.HashMap;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.minirule.grammar.FuncCallException;
 import org.minirule.grammar.IVar;
-import org.minirule.grammar.RuleError;
 import org.minirule.grammar.RuleException;
 import org.minirule.grammar.VarError;
 

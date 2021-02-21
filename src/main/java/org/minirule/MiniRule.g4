@@ -20,7 +20,7 @@ actionblock
 block
 	:  '{' (ifcmp block) + ('else' block)? '}' #blockIfcmp //条件
 	|  '{' (action block) ? '}' 	 		   #blockAction    //动作
-	|  '{' 'return' '{' (Str ':' param)+(',' Str ':' param)? '}' '}' 	 		   #blockReturn    //返回
+	|  '{' 'return' '{' (Str ':' param )(',' Str ':' param)* '}' '}' 	 		   #blockReturn    //返回
 	;
 
 

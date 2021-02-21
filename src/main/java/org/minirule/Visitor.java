@@ -229,7 +229,7 @@ public class Visitor extends MiniRuleBaseVisitor<IVar>{
 	private IVar getLocal(String varName) {
 		IVar v = this.locals.get(varName);
 		if (v == null) {
-			return Var.New(null);
+			return Var.New(this.context.get(varName));
 		} else {
 			return v;
 		}
