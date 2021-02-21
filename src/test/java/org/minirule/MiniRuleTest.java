@@ -93,11 +93,11 @@ public class MiniRuleTest {
         globals.put("b", 10);
         HashMap <String, Object> res = prog.call(globals);
         // 2*10 > 10, print 'hello'
-        System.out.printf("%s\n", res.get("A"));
+        assertEquals("hello", res.get("A"));
         globals.put("b", 20);
         // 2*10 <= 20, print 'world'
         res = prog.call(globals);
-        System.out.printf("%s\n", res.get("A"));
+        assertEquals("world", res.get("A"));
     }
 
     @Test
