@@ -10,6 +10,10 @@ public class VarError implements IVar {
         return VarError.class;
     }
 
+    public RuleException getException() {
+        return ruleError;
+    }
+
     public Object getValue() {
         return this;
     }

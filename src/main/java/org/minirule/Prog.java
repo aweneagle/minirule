@@ -26,7 +26,8 @@ public class Prog {
           }
           IVar res = v.visit(prog);
           if (res.getType() == VarError.class) {
-              throw new RuleException(RuleError.CalDivByZero);
+              VarError e = (VarError)res;
+              throw e.getException();
           } else {
               // 返回内容
               return (HashMap<String, Object>)res.getValue();

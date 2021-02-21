@@ -140,7 +140,15 @@ public class MiniRuleTest {
         String script = "A(2, 10), A(1,3) as A2 {" +
         "    return {\"A\":A, \"A2\":A2}" +
         "}";
-        mr.addFunc("A", FuncForTest.class, "mul", int.class, int.class);
+        // mr.addFunc("A", FuncForTest.class, "mul", int.class, int.class);
+        mr.addMethod("A", new Method() {
+            @Override
+            public IVar call(IVar... params) throws FuncCallException, RuleException {
+                double a = params[0].toDouble();
+                double b = params[1].toDouble();
+                return Var.New((int)a * (int)b);
+            }
+        });
         Prog prog = mr.compile(script);
         HashMap <String, Object> res = prog.call(null);
         assertEquals(20, res.get("A"));
