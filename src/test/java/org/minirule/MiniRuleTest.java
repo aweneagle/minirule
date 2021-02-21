@@ -67,6 +67,39 @@ public class MiniRuleTest {
         assertEquals(0, frozen);
 
     }
+
+    @Test
+    public void globals() throws Exception {
+        // MiniRule mr = new MiniRule();
+        // String script = "A(2, 10) as a {" +
+        // "    a > b {" +
+        // "        return {\"A\":\"hello\"}" + 
+        // "    }" +
+        // "    else {" +
+        // "        return {\"A\":\"world\"}" + 
+        // "    }" +
+        // "}";
+        
+        // mr.addMethod("A", new Method(){
+        //     @Override
+        //     public IVar call(IVar... params) throws FuncCallException, RuleException {
+        //         double a = params[0].toDouble();
+        //         double b = params[1].toDouble();
+        //         return Var.New((int)a * (int)b);
+        //     }
+        // });
+        // Prog prog = mr.compile(script);
+        // HashMap<String,Object> globals = new HashMap<String, Object>();
+        // globals.put("b", 10);
+        // HashMap <String, Object> res = prog.call(globals);
+        // // 2+10 > 10, print 'hello'
+        // System.out.printf("%s\n", res.get("A"));
+        // globals.put("b", 13);
+        // // 2+10 < 13, print 'world'
+        // res = prog.call(globals);
+        // System.out.printf("world\n", res.get("A"));
+    }
+
     @Test
     public void method() throws Exception {
         // TODO 测函数不存在
