@@ -17,6 +17,64 @@
 
 
 ## 开始使用
+引入maven repo
+```xml
+  <repositories>
+    <repository>
+        <id>github-minirule-repo</id>
+        <name>The Maven Repository on Github</name>
+        <url>https://github.com/aweneagle/minirule/maven-repo/</url>
+    </repository>
+</repositories>
+```
+
+```xml
+      <dependency>
+          <groupId>org</groupId>
+          <artifactId>minirule</artifactId>
+          <version>1.0.0</version>
+      </dependency>
+```
+
+示例代码：
+```java
+public class App 
+{
+    public static void main( String[] args ) throws Exception
+    {
+        MiniRule mr = new MiniRule();
+        String script = "A(2, 10) as a {" +
+        "    a > b {" +
+        "        return {\"A\":\"hello\"}" + 
+        "    }" +
+        "    else {" +
+        "        return {\"A\":\"world\"}" + 
+        "    }" +
+        "}";
+        
+        mr.addMethod("A", new Method(){
+            @Override
+            public IVar call(IVar... params) throws FuncCallException, RuleException {
+                double a = params[0].toDouble();
+                double b = params[1].toDouble();
+                return Var.New((int)a * (int)b);
+            }
+        });
+        Prog prog = mr.compile(script);
+        HashMap<String,Object> globals = new HashMap<String, Object>();
+        globals.put("b", 10);
+        HashMap <String, Object> res = prog.call(globals);
+        // 2*10 > 10, print 'hello'
+        System.out.printf("%s\n", res.get("A"));
+        globals.put("b", 20);
+        // 2*10 <= 20, print 'world'
+        res = prog.call(globals);
+        System.out.printf("%s\n", res.get("A"));
+    }
+}
+```
+
+## 使用手册
 
 #### 1. 编写规则
 
